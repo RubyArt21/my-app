@@ -1,22 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-  // Аналогично componentDidMount и componentDidUpdate:
+  const [comments, setComments] = useState([]);
+  const name = useRef("");
+  const textInput = useRef("");
+  const idInput = useRef("");
+
+  let n = 9;
+  let k = n;
+
+  function addElement() {
+    let newComments = [...comments];
+    let newName = name.value;
+    let newText = textInput.value;
+    k++;
+    newComments.push({ id: k, name: newName, body: newText });
+    console.log(newComments);
+    setComments(newComments);
+  }
+  function deleteElement() {
+    let newComments = comments;
+    let deletedId = idInput.value;
+    setComments(newComments);
+  }
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/comments/8")
+    fetch("https://jsonplaceholder.typicode.com/comments/")
       .then((response) => response.json())
-      .then((json) => console.log(json));
-    // Обновляем заголовок документа с помощью API браузера
-
-    document.title = `Вы нажали ${count} раз`;
-  });
-
+      .then((json) => setComments(json.slice(0, n)));
+  }, [n]);
+  //  console.log(comments);
   return (
     <div>
-      <p>Вы нажали {count} раз</p>
-      <button onClick={() => setCount(count + 1)}>Нажми на меня</button>
+      <table>
+        <tbody>
+          {comments.map((comment, index) => (
+            <tr key={comment.id}>
+              <td>{comment.id}</td>
+              <td>{comment.name}</td>
+              <td>{comment.body}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <form>
+        <input ref={name}></input>
+        <br />
+        <input ref={textInput}></input>
+        <br />
+        <button onClick={addElement}>добавить</button>
+        <input ref={idInput}></input>
+        <br />
+        <button onClick={deleteElement}>удалить</button>
+      </form>
     </div>
   );
 }
