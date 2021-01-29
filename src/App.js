@@ -11,8 +11,9 @@ function App() {
   let k = n;
 
   function addElement() {
-    let newComments = comments;
+    let newComments = [...comments];
     let newName = name.value;
+    console.log(name);
     let newText = textInput.value;
     k++;
     newComments.push({ id: k, name: newName, body: newText });
@@ -20,7 +21,7 @@ function App() {
     setComments(newComments);
   }
   function deleteElement() {
-    let newComments = comments;
+    let newComments = [...comments];
     let deletedId = idInput.value;
     newComments.splice(deletedId - 1, 1);
     setComments(newComments);
