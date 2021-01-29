@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
+  const [count, setCount] = useState(0);
+  // Аналогично componentDidMount и componentDidUpdate:
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/comments/8")
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+    // Обновляем заголовок документа с помощью API браузера
+
+    document.title = `Вы нажали ${count} раз`;
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>Вы нажали {count} раз</p>
+      <button onClick={() => setCount(count + 1)}>Нажми на меня</button>
     </div>
   );
 }
