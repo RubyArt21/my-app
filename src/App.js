@@ -12,9 +12,9 @@ function App() {
 
   function addElement() {
     let newComments = [...comments];
-    let newName = name.value;
+    let newName = name.current.value;
     console.log(name);
-    let newText = textInput.value;
+    let newText = textInput.current.value;
     k++;
     newComments.push({ id: k, name: newName, body: newText });
     console.log(newComments);
@@ -22,7 +22,7 @@ function App() {
   }
   function deleteElement() {
     let newComments = [...comments];
-    let deletedId = idInput.value;
+    let deletedId = idInput.current.value;
     newComments.splice(deletedId - 1, 1);
     setComments(newComments);
   }
