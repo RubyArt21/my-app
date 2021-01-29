@@ -6,16 +6,15 @@ function App() {
   const name = useRef("");
   const textInput = useRef("");
   const idInput = useRef("");
-
-  let n = 9;
-  let k = n;
+  const [ourIdn, setOurIdn] = useState(9);
+  const [ourIdk, setOurIdk] = useState(ourIdk);
 
   function addElement() {
     let newComments = [...comments];
     let newName = name.current.value;
     console.log(name);
     let newText = textInput.current.value;
-    k++;
+    setOurIdk(ourIdk++);
     newComments.push({ id: k, name: newName, body: newText });
     console.log(newComments);
     setComments(newComments);
@@ -29,8 +28,8 @@ function App() {
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/comments/")
       .then((response) => response.json())
-      .then((json) => setComments(json.slice(0, n)));
-  }, [n]);
+      .then((json) => setComments(json.slice(0, ourIdn)));
+  }, []);
   //  console.log(comments);
   return (
     <div>
