@@ -11,17 +11,18 @@ function App() {
   let k = n;
 
   function addElement() {
-    let newComments = [...comments];
+    let newComments = comments;
     let newName = name.value;
     let newText = textInput.value;
     k++;
-    newComments.push({ id: k, name: newName, body: newText });
+    newComments = newComments.push({ id: k, name: newName, body: newText });
     console.log(newComments);
     setComments(newComments);
   }
   function deleteElement() {
     let newComments = comments;
     let deletedId = idInput.value;
+    newComments = newComments.splice(deletedId, 1);
     setComments(newComments);
   }
   useEffect(() => {
@@ -44,16 +45,14 @@ function App() {
         </tbody>
       </table>
 
-      <form>
+      <div>
         <input ref={name}></input>
         <br />
         <input ref={textInput}></input>
-        <br />
         <button onClick={addElement}>добавить</button>
         <input ref={idInput}></input>
-        <br />
         <button onClick={deleteElement}>удалить</button>
-      </form>
+      </div>
     </div>
   );
 }
