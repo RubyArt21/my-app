@@ -15,14 +15,14 @@ function App() {
     let newName = name.value;
     let newText = textInput.value;
     k++;
-    newComments = newComments.push({ id: k, name: newName, body: newText });
+    newComments.push({ id: k, name: newName, body: newText });
     console.log(newComments);
     setComments(newComments);
   }
   function deleteElement() {
     let newComments = comments;
     let deletedId = idInput.value;
-    newComments = newComments.splice(deletedId, 1);
+    newComments.splice(deletedId - 1, 1);
     setComments(newComments);
   }
   useEffect(() => {
