@@ -7,15 +7,15 @@ function App() {
   const textInput = useRef("");
   const idInput = useRef("");
   const [ourIdn, setOurIdn] = useState(9);
-  const [ourIdk, setOurIdk] = useState(ourIdk);
+  [ourIdk, setOurIdk] = useState(ourIdn);
 
   function addElement() {
     let newComments = [...comments];
     let newName = name.current.value;
     console.log(name);
     let newText = textInput.current.value;
-    setOurIdk(ourIdk++);
-    newComments.push({ id: k, name: newName, body: newText });
+    setOurIdk(ourIdk + 1);
+    newComments.push({ id: ourIdk, name: newName, body: newText });
     console.log(newComments);
     setComments(newComments);
   }
@@ -29,7 +29,7 @@ function App() {
     fetch("https://jsonplaceholder.typicode.com/comments/")
       .then((response) => response.json())
       .then((json) => setComments(json.slice(0, ourIdn)));
-  }, []);
+  }, [ourIdn]);
   //  console.log(comments);
   return (
     <div>
