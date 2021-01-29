@@ -10,6 +10,7 @@ function App() {
   const [ourIdk, setOurIdk] = useState(n + 1);
   const idInputEdit = useRef("");
   const textInputEdit = useRef("");
+  const tableRef = useRef("");
 
   function addElement() {
     let newComments = [...comments];
@@ -35,8 +36,17 @@ function App() {
     setComments(newComments);
   }
 
-  function cell() {
-    var elem = document.getElementById("35");
+  function agregate() {
+    let sum = 0;
+
+    let table = tableRef.current;
+    console.log(tableRef);
+    let trList = table.getElementsByClassName("trch");
+    for (let tr in trList) {
+      let td = tr.getElementByTagName("td");
+      sum += td.text;
+    }
+    return sum;
   }
 
   useEffect(() => {
@@ -47,18 +57,18 @@ function App() {
   //  console.log(comments);
   return (
     <div>
-      <table>
+      <table ref={tableRef}>
         <tbody>
           {comments.map((comment, index) => (
-            <tr key={comment.id}>
-              <td id={id}>{comment.id}</td>
-              <td id={name}>{comment.name}</td>
-              <td id={body}>{comment.body}</td>
+            <tr class="trch" key={comment.id}>
+              <td>{comment.id}</td>
+              <td>{comment.name}</td>
+              <td>{comment.body}</td>
             </tr>
           ))}
         </tbody>
       </table>
-
+      <div> {agregate()}</div>
       <div>
         <input ref={name}></input>
         <br />
